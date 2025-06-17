@@ -8,46 +8,76 @@
 import SwiftUI
 
 struct RoleSelectionView: View {
+    @EnvironmentObject var authService: AuthService
+    private let profileService = ProfileService()
+    
     var body: some View {
         NavigationStack{
             ZStack{
-                LoginBackground()
+                LoginBackgroundView()
                 VStack{
                     Text("Which one are you?")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
                         .padding(30)
-                    NavigationLink(destination: ElderlyView()){
+                    
+                    Button {
+                        Task {
+                            if let user = authService.user {
+                                await updateRole(
+                                    uuid: user.id.uuidString,
+                                    role: .elderly
+                                )
+                            }
+                        }
+                    } label: {
                         Text("Elderly")
-                            .font(.body)
+                            .font(.title3)
+                            .bold(true)
                             .foregroundStyle(.black)
-                            .frame(width: 228, height: 44)
+                            .frame(width: 228)
+                            .padding(.vertical, 12)
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(.white)
-                                
                             )
-                            .padding(.bottom, 30)
                     }
+                    .padding(.bottom, 24)
                     
-                    NavigationLink(destination: GuardianView()){
+                    Button {
+                        Task {
+                            if let user = authService.user {
+                                await updateRole(
+                                    uuid: user.id.uuidString,
+                                    role: .guardian
+                                )
+                            }
+                        }
+                    } label: {
                         Text("Guardian")
-                            .font(.body)
+                            .font(.title3)
+                            .bold(true)
                             .foregroundStyle(.black)
-                            .frame(width: 228, height: 44)
+                            .frame(width: 228)
+                            .padding(.vertical, 12)
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(.white)
                             )
                     }
-                    
                 }
             }
         }
-        
-        
-        
+    }
+    
+    func updateRole(uuid: String, role: Role) async {
+        let success = await profileService.updateRole(uuid: uuid, role: role)
+        if success {
+            await MainActor.run {
+                authService.role = role                
+            }
+        }
     }
 }
 

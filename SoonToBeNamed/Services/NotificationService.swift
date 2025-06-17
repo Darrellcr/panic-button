@@ -18,7 +18,6 @@ final class NotificationService {
             deviceToken: hexToken,
             deviceType: "ios"
         )
-        print(deviceToken)
         try await supabase
             .from("device_tokens")
             .upsert(

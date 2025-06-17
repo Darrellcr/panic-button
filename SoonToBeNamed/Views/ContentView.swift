@@ -8,30 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var supabaseSession = SupabaseSession()
+    @StateObject private var authService = AuthService()
+    private let profileService = ProfileService()
     
     var body: some View {
         Group {
-//            if !supabaseSession.isAuthenticated {
-//                AuthView()
-//            }
-            AuthView()
-            Button("asd") {
-                Task {
-                    await supabaseSession.getRole()                    
-                }
+            if authService.isLoading {
+                LoadingView()
+            } else if !authService.isAuthenticated {
+                LoginView()
+            } else if authService.role == nil {
+                RoleSelectionView()
+            } else if authService.role == Role.guardian {
+                GuardianView()
+            } else if authService.role == Role.elderly {
+                ElderlyView()
+            } else {
+                Text("Empty")
             }
         }
+        .environmentObject(authService)
         .task {
             Task {
-                do {
-                    supabaseSession.session = try await supabase.auth.session
-                    supabaseSession.user = supabase.auth.currentUser
-                    supabaseSession.isAuthenticated = true
-                } catch {
-                    supabaseSession.isAuthenticated = false
+                authService.isLoading = true
+                await authService.loadSession()
+                if let user = authService.user {
+                    let uuidString = user.id.uuidString
+                    let role = await profileService.getRole(uuid: uuidString)
+                    await MainActor.run {
+                        authService.role = role
+                    }
                 }
-                
+                authService.isLoading = false
             }
         }
     }

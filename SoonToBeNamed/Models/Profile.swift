@@ -8,7 +8,7 @@
 import Foundation
 
 enum Role: String, Codable {
-    case guardian, elder
+    case guardian, elderly
 }
 
 struct Profile: Codable {
