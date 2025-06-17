@@ -13,19 +13,23 @@ class SupabaseSession: ObservableObject {
     @Published var user: User?
     @Published var isAuthenticated = false
     
-    public func getRole() async {
+    public func getRole() async -> Role? {
         print("getrole called")
-        guard let userId = self.user?.id else { return }
+        guard let userId = self.user?.id else { return nil }
         print(userId.uuidString)
         do {
-            let response = try await supabase
+            let profile: Profile = try await supabase
                 .from("profiles")
                 .select()
+                .eq("id", value: "8F00EB98-CBD6-4060-8D49-5EF5FC4CE55Dasd")
+                .single()
                 .execute()
-            print(response)
+                .value
+            
+            return profile.role
         } catch {
             print(error)
-            print("empty")
+            return nil
         }
         
     }

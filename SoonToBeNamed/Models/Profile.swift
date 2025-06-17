@@ -16,7 +16,7 @@ struct Profile: Codable {
     let username: String?
     let fullName: String?
     let avatarURL: String?
-    let role: Role
+    let role: Role?
     
     enum CodingKeys: String, CodingKey {
         case id
