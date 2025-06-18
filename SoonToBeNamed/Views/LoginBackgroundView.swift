@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginBackgroundView: View {
     var body: some View {
         LinearGradient(
-            gradient: Gradient(colors: [.red, .red.opacity(0.7)]),
+            gradient: Gradient(colors: [.backColor1,.backColor2]),
             startPoint: .leading,
             endPoint: .trailing
         )
