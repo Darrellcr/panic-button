@@ -24,6 +24,7 @@ final class AuthService: ObservableObject {
             let supabaseSession = try await supabase.auth.session
             self.session = supabaseSession
             self.isAuthenticated = self.session != nil
+            print(self.session?.accessToken)
         } catch {
             print("Error loading session: \(error)")
         }
@@ -60,6 +61,7 @@ final class AuthService: ObservableObject {
         }
         
         self.session = session
+        print(self.session?.accessToken)
         self.isAuthenticated = true
     }
     

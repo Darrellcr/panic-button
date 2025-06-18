@@ -9,14 +9,14 @@ import { sendNotification } from "./notifications.ts"
 console.log("Hello from Functions!")
 
 Deno.serve(async (req) => {
-  const { name } = await req.json()
+  const { name, device } = await req.json()
   const data = {
     message: `Hello ${name}!`,
   }
 
   console.log(await sendNotification({
-    title: "Sg Gnh",
-    body: `Hello ${name}! Sg gnh heee.`,
+    title: "🆘 SOS Alert: Your dad activated the SOS button.",
+    body: `Track their position now.`,
     data: {
       customData: "This is some custom data",
     },

@@ -102,7 +102,7 @@ export async function sendNotification(payload: NotificationPayload) {
     const iosDevices = [
       {
         id: 1,
-        device_token: "bd3a47cf195d6d975ec6e2a46595bf098bc95da1d6e1cb9e9332bea40ec2ffdb",
+        device_token: "d883df92aeaea058f18091e5689071e1961c57f644190579bcda7a1ac1acbe72",
         device_type: "ios",
         enabled_notifications: true,
         created_at: new Date().toISOString(),

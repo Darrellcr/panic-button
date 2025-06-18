@@ -10,7 +10,6 @@ import UIKit
 import UserNotifications
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
-    var deviceToken: Data?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
@@ -21,6 +20,24 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        self.deviceToken = deviceToken
+        let tokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        
+        Task {
+            do {
+                let session = try await supabase.auth.session
+                let userId = session.user.id.uuidString
+                
+                try await supabase
+                    .from("device_tokens")
+                    .insert([
+                        "user_id": userId,
+                        "device_token": tokenString,
+                        "device_type": "ios"
+                    ])
+                    .execute()
+            } catch {
+                print("Failed to store device token: \(error)")
+            }
+        }
     }
 }

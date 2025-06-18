@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.calvin.watch</string>
+		<string>group.C4A14.drl.SafeTap</string>
 	</array>
 </dict>
 </plist>
