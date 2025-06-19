@@ -35,20 +35,7 @@ struct WatchOSEntryView : View {
     var entry: Provider.Entry
     
     var body: some View {
-        ZStack {
-            Capsule()
-                .fill(.red)
-            HStack{
-                Image("logo")
-                Text("SOS")
-                    .font(.title)
-                    .bold(true)
-            }
-            
-        }
-        .widgetURL(URL(string: "myapp://sos"))
-        .containerBackground(.fill.tertiary, for: .widget)
-
+        WatchOSWidgetView()
     }
 }
 
@@ -60,7 +47,7 @@ struct WatchOS: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             WatchOSEntryView(entry: entry)
         }
-        .supportedFamilies([.accessoryRectangular, .accessoryCircular, .accessoryInline, .accessoryRectangular])
+        .supportedFamilies([.accessoryRectangular])
         .configurationDisplayName("SOS Button")
         .description("Tap to open SOS screen.")
     }
