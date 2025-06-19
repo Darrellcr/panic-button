@@ -14,6 +14,7 @@ import WatchConnectivity
 final class AuthService: ObservableObject {
     @Published var session: Session?
     @Published var role: Role?
+    @Published var onboarded: Bool?
     @Published var isAuthenticated = false
     @Published var isLoading = true
     var user: User? {
@@ -51,7 +52,8 @@ final class AuthService: ObservableObject {
             )
         )
         
-        if let name = credential.fullName {
+        if let name = credential.fullName,
+           let email = credential.email {
             let fullName = "\(name.givenName ?? "") \(name.familyName ?? "")"
             try await supabase.auth.update(
                 user: UserAttributes(
@@ -60,6 +62,15 @@ final class AuthService: ObservableObject {
                     ]
                 )
             )
+            let userId = session.user.id.uuidString
+            try await supabase
+                .from("profiles")
+                .update([
+                    "email": email,
+                    "full_name": fullName
+                ])
+                .eq("id", value: userId)
+                .execute()
         }
         
         self.session = session

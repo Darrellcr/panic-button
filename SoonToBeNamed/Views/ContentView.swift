@@ -21,6 +21,8 @@ struct ContentView: View {
                 RoleSelectionView()
             } else if authService.role == Role.guardian {
                 GuardianView()
+            } else if authService.onboarded == nil || authService.onboarded == false {
+                OnboardingAddGuardianView()
             } else if authService.role == Role.elderly {
                 ElderlyView()
             } else {
@@ -35,8 +37,10 @@ struct ContentView: View {
                 if let user = authService.user {
                     let uuidString = user.id.uuidString
                     let role = await profileService.getRole(uuid: uuidString)
+                    let onboarded = await profileService.getOnboardingStatus(uuid: uuidString)
                     await MainActor.run {
                         authService.role = role
+                        authService.onboarded = onboarded
                     }
                 }
                 authService.isLoading = false

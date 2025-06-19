@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RoleSelectionView: View {
     @EnvironmentObject var authService: AuthService
+    private let notificationService = NotificationService()
     private let profileService = ProfileService()
     
     var body: some View {
@@ -67,6 +68,11 @@ struct RoleSelectionView: View {
                             )
                     }
                 }
+            }
+        }
+        .task {
+            Task {
+                notificationService.registerForRemoteNotifications()
             }
         }
     }

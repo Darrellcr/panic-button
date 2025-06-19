@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GuardianView: View {
     @EnvironmentObject var authService: AuthService
-    private let notificationService = NotificationService()
     
     var body: some View {
         VStack {
@@ -20,11 +19,6 @@ struct GuardianView: View {
                         try await authService.logout()
                     }
                 }
-            }
-        }
-        .task {
-            Task {
-                notificationService.registerForRemoteNotifications()
             }
         }
     }

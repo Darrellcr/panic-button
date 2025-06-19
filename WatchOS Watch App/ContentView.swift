@@ -19,7 +19,7 @@ struct ContentView: View {
                             "send-notification",
                             options: .init(
                                 method: .post,
-                                body: ["deviceToken": "00ffcf18b4ec96ad365274563f932614ab2ed86cb27639e1325f4878ca9adf92"]
+                                body: ["deviceToken": "edfbfda70a52426d7310f752392454eafb701039190ed16f1a77ea1302cc9e3a"]
                             )
                         )
                 } catch {

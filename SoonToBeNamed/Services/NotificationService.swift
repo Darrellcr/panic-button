@@ -29,13 +29,21 @@ final class NotificationService {
     }
     
     func registerForRemoteNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .authorized, .provisional, .ephemeral:
+                print("Notification permission granted")
+            default:
+                print("Requesting notification permission")
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                    if granted {
+                        DispatchQueue.main.async {
+                            UIApplication.shared.registerForRemoteNotifications()
+                        }
+                    } else {
+                        print("Notification permission denied: \(error?.localizedDescription ?? "No error")")
+                    }
                 }
-            } else {
-                print("Notification permission denied: \(error?.localizedDescription ?? "No error")")
             }
         }
     }

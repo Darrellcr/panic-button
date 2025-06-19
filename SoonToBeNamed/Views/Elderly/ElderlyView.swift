@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ElderlyView: View {
     @EnvironmentObject var authService: AuthService
-    private let notificationService = NotificationService()
     
     var body: some View {
         Text("Elderly")
@@ -20,10 +19,6 @@ struct ElderlyView: View {
                 }
             }
         }
-        .task {
-            Task {
-                notificationService.registerForRemoteNotifications()
-            }
-        }
+        
     }
 }

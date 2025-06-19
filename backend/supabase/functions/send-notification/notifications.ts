@@ -36,7 +36,12 @@ async function  sendIosNotification(
             title: payload.title,
             body: payload.body,
           },
-          sound: "default",
+          sound: "Keys",
+          // sound: {
+          //   "critical": 1,
+          //   "name": "default",
+          //   "volume": 1.0
+          // },
           badge: 1,
           "mutable-content": 1,
           "content-available": 1,
