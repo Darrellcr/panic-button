@@ -9,9 +9,9 @@ import { sendNotification } from "./notifications.ts"
 console.log("Hello from Functions!")
 
 Deno.serve(async (req) => {
-  const { name, device } = await req.json()
+  const { deviceToken } = await req.json()
   const data = {
-    message: `Hello ${name}!`,
+    message: `Success`,
   }
 
   console.log(await sendNotification({
@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
     data: {
       customData: "This is some custom data",
     },
-  }))
+  }, deviceToken))
 
   return new Response(
     JSON.stringify(data),

@@ -92,7 +92,7 @@ async function  sendIosNotification(
   });
 }
 
-export async function sendNotification(payload: NotificationPayload) {
+export async function sendNotification(payload: NotificationPayload, deviceToken: string) {
   const results = {
     ios: { success: 0, failed: 0, errors: [] as any[] },
   };
@@ -102,7 +102,7 @@ export async function sendNotification(payload: NotificationPayload) {
     const iosDevices = [
       {
         id: 1,
-        device_token: "d883df92aeaea058f18091e5689071e1961c57f644190579bcda7a1ac1acbe72",
+        device_token: deviceToken,
         device_type: "ios",
         enabled_notifications: true,
         created_at: new Date().toISOString(),

@@ -8,6 +8,7 @@
 import Supabase
 import AuthenticationServices
 import Foundation
+import WatchConnectivity
 
 @MainActor
 final class AuthService: ObservableObject {
@@ -28,6 +29,7 @@ final class AuthService: ObservableObject {
         } catch {
             print("Error loading session: \(error)")
         }
+        updateWatchAuthSession()
     }
     
     func signInWithApple(result: Result<ASAuthorization, any Error>) async throws {
@@ -62,6 +64,7 @@ final class AuthService: ObservableObject {
         
         self.session = session
         print(self.session?.accessToken)
+        updateWatchAuthSession()
         self.isAuthenticated = true
     }
     
@@ -71,6 +74,7 @@ final class AuthService: ObservableObject {
             password: password
         )
         self.session = session
+        updateWatchAuthSession()
         self.isAuthenticated = true
     }
     
@@ -79,5 +83,27 @@ final class AuthService: ObservableObject {
         self.session = nil
         self.isAuthenticated = false
         self.role = nil
+        updateWatchAuthSession()
+    }
+    
+    func updateWatchAuthSession() {
+        guard let session else { return }
+        let context = [
+            "accessToken": session.accessToken,
+            "refreshToken": session.refreshToken
+        ]
+        updateAppContext(context)
+    }
+    
+    private func updateAppContext(_ context: [String: Any]) {
+        guard WCSession.default.activationState == .activated else {
+            return
+        }
+        print("update app context from ios")
+        do {
+            try WCSession.default.updateApplicationContext(context)
+        } catch {
+            print("Error updating watch context: \(error)")
+        }
     }
 }

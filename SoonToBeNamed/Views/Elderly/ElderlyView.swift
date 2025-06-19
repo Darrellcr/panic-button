@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ElderlyView: View {
     @EnvironmentObject var authService: AuthService
+    private let notificationService = NotificationService()
     
     var body: some View {
         Text("Elderly")
@@ -17,6 +18,11 @@ struct ElderlyView: View {
                 do {
                     try await authService.logout()
                 }
+            }
+        }
+        .task {
+            Task {
+                notificationService.registerForRemoteNotifications()
             }
         }
     }

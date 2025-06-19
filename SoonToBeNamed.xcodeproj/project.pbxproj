@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2634FF482E02ACF800C19204 /* WatchOS Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2634FF3E2E02ACF700C19204 /* WatchOS Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2634FF482E02ACF800C19204 /* SafeTap Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2634FF3E2E02ACF700C19204 /* SafeTap Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5B2B21782DFB2BD50020CEC1 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B21772DFB2BD50020CEC1 /* Auth */; };
 		5B2B217A2DFB2BD50020CEC1 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B21792DFB2BD50020CEC1 /* PostgREST */; };
 		5B2B217C2DFB2BD50020CEC1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B217B2DFB2BD50020CEC1 /* Supabase */; };
+		5B6A28DC2E030A4500862A5F /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 5B6A28DB2E030A4500862A5F /* Auth */; };
+		5B6A28DE2E030A4500862A5F /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 5B6A28DD2E030A4500862A5F /* Functions */; };
+		5B6A28E02E030A4500862A5F /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 5B6A28DF2E030A4500862A5F /* PostgREST */; };
+		5B6A28E22E030A4500862A5F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5B6A28E12E030A4500862A5F /* Supabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +34,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				2634FF482E02ACF800C19204 /* WatchOS Watch App.app in Embed Watch Content */,
+				2634FF482E02ACF800C19204 /* SafeTap Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,8 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2634FF3E2E02ACF700C19204 /* WatchOS Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchOS Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5B2B21632DFB2B900020CEC1 /* SoonToBeNamed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoonToBeNamed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2634FF3E2E02ACF700C19204 /* SafeTap Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SafeTap Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B2B21632DFB2B900020CEC1 /* SafeTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -60,6 +64,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B6A28E22E030A4500862A5F /* Supabase in Frameworks */,
+				5B6A28E02E030A4500862A5F /* PostgREST in Frameworks */,
+				5B6A28DE2E030A4500862A5F /* Functions in Frameworks */,
+				5B6A28DC2E030A4500862A5F /* Auth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +89,7 @@
 			children = (
 				5B2B21652DFB2B910020CEC1 /* SoonToBeNamed */,
 				2634FF3F2E02ACF700C19204 /* WatchOS Watch App */,
+				5B6A28DA2E030A4500862A5F /* Frameworks */,
 				5B2B21642DFB2B900020CEC1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,18 +97,25 @@
 		5B2B21642DFB2B900020CEC1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5B2B21632DFB2B900020CEC1 /* SoonToBeNamed.app */,
-				2634FF3E2E02ACF700C19204 /* WatchOS Watch App.app */,
+				5B2B21632DFB2B900020CEC1 /* SafeTap.app */,
+				2634FF3E2E02ACF700C19204 /* SafeTap Watch App.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5B6A28DA2E030A4500862A5F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2634FF3D2E02ACF700C19204 /* WatchOS Watch App */ = {
+		2634FF3D2E02ACF700C19204 /* SafeTap Watch App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2634FF4C2E02ACF800C19204 /* Build configuration list for PBXNativeTarget "WatchOS Watch App" */;
+			buildConfigurationList = 2634FF4C2E02ACF800C19204 /* Build configuration list for PBXNativeTarget "SafeTap Watch App" */;
 			buildPhases = (
 				2634FF3A2E02ACF700C19204 /* Sources */,
 				2634FF3B2E02ACF700C19204 /* Frameworks */,
@@ -112,16 +128,20 @@
 			fileSystemSynchronizedGroups = (
 				2634FF3F2E02ACF700C19204 /* WatchOS Watch App */,
 			);
-			name = "WatchOS Watch App";
+			name = "SafeTap Watch App";
 			packageProductDependencies = (
+				5B6A28DB2E030A4500862A5F /* Auth */,
+				5B6A28DD2E030A4500862A5F /* Functions */,
+				5B6A28DF2E030A4500862A5F /* PostgREST */,
+				5B6A28E12E030A4500862A5F /* Supabase */,
 			);
 			productName = "WatchOS Watch App";
-			productReference = 2634FF3E2E02ACF700C19204 /* WatchOS Watch App.app */;
+			productReference = 2634FF3E2E02ACF700C19204 /* SafeTap Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5B2B21622DFB2B900020CEC1 /* SoonToBeNamed */ = {
+		5B2B21622DFB2B900020CEC1 /* SafeTap */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B2B216D2DFB2B910020CEC1 /* Build configuration list for PBXNativeTarget "SoonToBeNamed" */;
+			buildConfigurationList = 5B2B216D2DFB2B910020CEC1 /* Build configuration list for PBXNativeTarget "SafeTap" */;
 			buildPhases = (
 				5B2B215F2DFB2B900020CEC1 /* Sources */,
 				5B2B21602DFB2B900020CEC1 /* Frameworks */,
@@ -136,14 +156,14 @@
 			fileSystemSynchronizedGroups = (
 				5B2B21652DFB2B910020CEC1 /* SoonToBeNamed */,
 			);
-			name = SoonToBeNamed;
+			name = SafeTap;
 			packageProductDependencies = (
 				5B2B21772DFB2BD50020CEC1 /* Auth */,
 				5B2B21792DFB2BD50020CEC1 /* PostgREST */,
 				5B2B217B2DFB2BD50020CEC1 /* Supabase */,
 			);
 			productName = SoonToBeNamed;
-			productReference = 5B2B21632DFB2B900020CEC1 /* SoonToBeNamed.app */;
+			productReference = 5B2B21632DFB2B900020CEC1 /* SafeTap.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -181,8 +201,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5B2B21622DFB2B900020CEC1 /* SoonToBeNamed */,
-				2634FF3D2E02ACF700C19204 /* WatchOS Watch App */,
+				5B2B21622DFB2B900020CEC1 /* SafeTap */,
+				2634FF3D2E02ACF700C19204 /* SafeTap Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -224,7 +244,7 @@
 /* Begin PBXTargetDependency section */
 		2634FF472E02ACF800C19204 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2634FF3D2E02ACF700C19204 /* WatchOS Watch App */;
+			target = 2634FF3D2E02ACF700C19204 /* SafeTap Watch App */;
 			targetProxy = 2634FF462E02ACF800C19204 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -290,7 +310,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WatchOS;
+				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = C4A14.drl.SafeTap;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -369,7 +389,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WatchOS;
+				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = C4A14.drl.SafeTap;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -468,6 +488,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -557,6 +578,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -592,7 +614,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2634FF4C2E02ACF800C19204 /* Build configuration list for PBXNativeTarget "WatchOS Watch App" */ = {
+		2634FF4C2E02ACF800C19204 /* Build configuration list for PBXNativeTarget "SafeTap Watch App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2634FF4A2E02ACF800C19204 /* Debug */,
@@ -610,7 +632,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B2B216D2DFB2B910020CEC1 /* Build configuration list for PBXNativeTarget "SoonToBeNamed" */ = {
+		5B2B216D2DFB2B910020CEC1 /* Build configuration list for PBXNativeTarget "SafeTap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B2B216E2DFB2B910020CEC1 /* Debug */,
@@ -644,6 +666,26 @@
 			productName = PostgREST;
 		};
 		5B2B217B2DFB2BD50020CEC1 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		5B6A28DB2E030A4500862A5F /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		5B6A28DD2E030A4500862A5F /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		5B6A28DF2E030A4500862A5F /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		5B6A28E12E030A4500862A5F /* Supabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;

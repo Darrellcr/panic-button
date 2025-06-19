@@ -8,11 +8,13 @@
 import Foundation
 import UIKit
 import UserNotifications
+import WatchConnectivity
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
+        setupWatchConnectivity()
         
         return true
     }
@@ -39,5 +41,30 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 print("Failed to store device token: \(error)")
             }
         }
+    }
+}
+
+extension AppDelegate: WCSessionDelegate {
+    func setupWatchConnectivity() {
+        guard WCSession.isSupported() else { return }
+        WCSession.default.delegate = self
+        WCSession.default.activate()
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
+        print(activationState.rawValue)
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("Session did become inactive")
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("Session did deactivate")
+        session.activate()
+    }
+    
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        print("Reachable: \(WCSession.default.isReachable)")
     }
 }
