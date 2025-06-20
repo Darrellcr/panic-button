@@ -13,7 +13,8 @@ struct SoonToBeNamedApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            GuardianView()
         }
     }
 }
