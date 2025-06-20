@@ -4,24 +4,28 @@
 
 // Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
-import { sendNotification } from "./notifications.ts"
+import { sendNotification } from "../notifications.ts"
+import { fetchGuardianDeviceTokens } from "../db.ts"
 
 console.log("Hello from Functions!")
 
 Deno.serve(async (req) => {
-  const { deviceToken } = await req.json()
-  const data = {
-    message: `Success`,
-  }
+  const { userId } = await req.json()
 
+  const deviceTokens = await fetchGuardianDeviceTokens(userId)
+  console.log("Guardian device tokens:", deviceTokens)
   console.log(await sendNotification({
     title: "🆘 SOS Alert: Your dad activated the SOS button.",
     body: `Track their position now.`,
+    category: "sos",
     data: {
       customData: "This is some custom data",
     },
-  }, deviceToken))
+  }, deviceTokens))
 
+  const data = {
+    message: "Notification sent successfully",
+  }
   return new Response(
     JSON.stringify(data),
     { headers: { "Content-Type": "application/json" } },

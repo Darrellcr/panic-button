@@ -22,29 +22,52 @@ final class NotificationService {
             .from("device_tokens")
             .upsert(
                 deviceToken,
-                onConflict: "user_id,device_token",
-                ignoreDuplicates: true
+                onConflict: "user_id,device_type",
+                ignoreDuplicates: false
             )
             .execute()
     }
     
     func registerForRemoteNotifications() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-            case .authorized, .provisional, .ephemeral:
-                print("Notification permission granted")
-            default:
-                print("Requesting notification permission")
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                    if granted {
-                        DispatchQueue.main.async {
-                            UIApplication.shared.registerForRemoteNotifications()
-                        }
-                    } else {
-                        print("Notification permission denied: \(error?.localizedDescription ?? "No error")")
-                    }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
                 }
+            } else {
+                print("Notification permission denied: \(error?.localizedDescription ?? "No error")")
             }
+        }
+    }
+    
+    func sendSOSNotification(fromUserId: String) async {
+        do {
+            try await supabase.functions
+                .invoke(
+                    "send-notification",
+                    options: .init(
+                        method: .post,
+                        body: ["userId": "edfbfda70a52426d7310f752392454eafb701039190ed16f1a77ea1302cc9e3a"]
+                    )
+                )
+        } catch {
+            print("Error sending sos notification \(error)")
+        }
+    }
+    
+    func sendInvitationNotification(from: String, to: [String]) async {
+        let body = InvitationRequestBody(userId: from, guardianIds: to)
+        do {
+            try await supabase.functions
+                .invoke(
+                    "send-invitation",
+                    options: .init(
+                        method: .post,
+                        body: body
+                    )
+                )
+        } catch {
+            print("Error sending invitation notification: \(error)")
         }
     }
 }
@@ -54,4 +77,9 @@ extension Data {
         let hexString = map { String(format: "%02.2hhx", $0) }.joined()
         return hexString
     }
+}
+
+struct InvitationRequestBody: Encodable {
+    let userId: String
+    let guardianIds: [String]
 }

@@ -10,12 +10,9 @@ import SwiftUI
 struct OnboardingAddGuardianView: View {
     @EnvironmentObject var authService: AuthService
     private let profileService = ProfileService()
+    private let guardianService = GuardianService()
     @State var showAddGuardianSheet: Bool = false
-    @State var selectedGuardians: [Profile] = [
-        Profile(id: UUID(), fullName: "Darrell Cornelius Rivaldo", email: "a@a.com"),
-        Profile(id: UUID(), fullName: "Calvin Christian Tjong", email: "a@a.com"),
-        Profile(id: UUID(), fullName: "Michelle Michiko", email: "z@a.com")
-    ]
+    @State var confirmedGuardians: [Profile] = []
     
     var body: some View {
         ZStack {
@@ -31,15 +28,20 @@ struct OnboardingAddGuardianView: View {
                     GroupBox {
                         List {
                             Section {
-                                ForEach(1..<5, id: \.self) { number in
-                                    ContactRowView(
-                                        fullName: "Darrell", email: "email@example.com"
-                                    )
-                                    
+                                if !confirmedGuardians.isEmpty {
+                                    ForEach(confirmedGuardians, id: \.self) { confirmedGuardian in
+                                        ContactRowView(
+                                            fullName: confirmedGuardian.fullName!, email: confirmedGuardian.email!
+                                        )
+                                        
+                                    }
+                                    .onDelete(perform: { offsets in
+                                        print(offsets)
+                                    })
+                                } else {
+                                    Text("Start adding your guardians")
+                                        .frame(maxWidth: .infinity, minHeight: 150, alignment: .center)
                                 }
-                                .onDelete(perform: { offsets in
-                                    print(offsets)
-                                })
                                 
                             } header: {
                                 Text("Guardian Contact")
@@ -52,6 +54,14 @@ struct OnboardingAddGuardianView: View {
                             
                         }
                         .scrollContentBackground(.hidden)
+                        .refreshable {
+                            Task {
+                                let guardians = await guardianService.getConfirmedGuardiansOfUser(userId: authService.user!.id.uuidString)
+                                await MainActor.run {
+                                    confirmedGuardians = guardians
+                                }
+                            }
+                        }
                         
                         
                         VStack {
@@ -70,7 +80,7 @@ struct OnboardingAddGuardianView: View {
                             .padding(.bottom, 24)
                             .padding(.horizontal, 20)
                             
-                            if selectedGuardians.isEmpty {
+                            if confirmedGuardians.isEmpty {
                                 Button {
                                     Task {
                                         await finishOnboarding()
@@ -112,6 +122,14 @@ struct OnboardingAddGuardianView: View {
         }
         .sheet(isPresented: $showAddGuardianSheet) {
             AddGuardianSheetView()
+        }
+        .task {
+            Task {
+                let guardians = await guardianService.getConfirmedGuardiansOfUser(userId: authService.user!.id.uuidString)
+                await MainActor.run {
+                    confirmedGuardians = guardians
+                }
+            }
         }
     }
     

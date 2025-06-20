@@ -21,7 +21,7 @@ class GuardianService {
         do {
             try await supabase
                 .from("guardians")
-                .insert(rows)
+                .upsert(rows, onConflict: "elder_id,guardian_id", ignoreDuplicates: false)
                 .execute()
         } catch {
             print(error)
@@ -44,20 +44,37 @@ class GuardianService {
         }
     }
     
-    func getConfirmedGuardiansOfUser(userId: String) async -> [ConfirmedGuardian] {
+    func getConfirmedGuardiansOfUser(userId: String) async -> [Profile] {
         do {
-            let confirmedGuardian: [ConfirmedGuardian] = try await supabase
-                .from("guardians")
-                .select("guardian_id")
-                .eq("elder_id", value: userId)
-                .eq("confirmed_by_guardian", value: true)
+            let confirmedGuardians: [Profile] = try await supabase
+                .from("profiles")
+                .select("*, guardians:guardians!guardians_guardian_id_fkey!inner(elder_id, confirmed_by_guardian)")
+                .eq("guardians.elder_id", value: userId)
+                .eq("guardians.confirmed_by_guardian", value: true)
                 .execute()
                 .value
             
-            return confirmedGuardian
+            return confirmedGuardians
         } catch {
             print("Fail to get confirmed guardians of user \(error)")
             return []
+        }
+    }
+    
+    func acceptInvitation(elderId: String, guardianId: String) async -> Bool {
+        do {
+            print(elderId)
+            print(guardianId)
+            try await supabase
+                .from("guardians")
+                .update(["confirmed_by_guardian": true])
+                .eq("elder_id", value: elderId)
+                .eq("guardian_id", value: guardianId)
+                .execute()
+            return true
+        } catch {
+            print("Fail to accept invitation \(error)")
+            return false
         }
     }
     
@@ -65,13 +82,5 @@ class GuardianService {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime]
         return formatter.string(from: Date())
-    }
-}
-
-struct ConfirmedGuardian: Codable {
-    let guardianId: UUID
-    
-    enum CodingKeys: String, CodingKey {
-        case guardianId = "guardian_id"
     }
 }

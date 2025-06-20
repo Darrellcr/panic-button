@@ -36,7 +36,7 @@ async function  sendIosNotification(
             title: payload.title,
             body: payload.body,
           },
-          sound: "Keys",
+          sound: "default",
           // sound: {
           //   "critical": 1,
           //   "name": "default",
@@ -46,7 +46,7 @@ async function  sendIosNotification(
           "mutable-content": 1,
           "content-available": 1,
           priority: 10,
-          category: "message",
+          category: payload.category,
         },
         ...payload.data,
       };
@@ -97,31 +97,31 @@ async function  sendIosNotification(
   });
 }
 
-export async function sendNotification(payload: NotificationPayload, deviceToken: string) {
+export async function sendNotification(payload: NotificationPayload, deviceTokens: string[]) {
   const results = {
     ios: { success: 0, failed: 0, errors: [] as any[] },
   };
 
   try {
     // const iosDevices = await fetchRegisteredDevices();
-    const iosDevices = [
-      {
-        id: 1,
-        device_token: deviceToken,
-        device_type: "ios",
-        enabled_notifications: true,
-        created_at: new Date().toISOString(),
-      },
-    ]
+    // const iosDevices = [
+    //   {
+    //     id: 1,
+    //     device_token: deviceToken,
+    //     device_type: "ios",
+    //     enabled_notifications: true,
+    //     created_at: new Date().toISOString(),
+    //   },
+    // ]
 
-    if (iosDevices.length > 0) {
+    if (deviceTokens.length > 0) {
       const apnsToken = await getAuthTokenFromAPN();
 
-      for (let i = 0; i < iosDevices.length; i += BATCH_SIZE) {
-        const batch = iosDevices.slice(i, i + BATCH_SIZE);
+      for (let i = 0; i < deviceTokens.length; i += BATCH_SIZE) {
+        const batch = deviceTokens.slice(i, i + BATCH_SIZE);
         const batchResults = await Promise.all(
-          batch.map((device) =>
-            sendIosNotification(device.device_token, payload, apnsToken)
+          batch.map((deviceToken) =>
+            sendIosNotification(deviceToken, payload, apnsToken)
           )
         );
 

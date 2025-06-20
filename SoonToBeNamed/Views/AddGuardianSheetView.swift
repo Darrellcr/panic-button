@@ -11,6 +11,7 @@ struct AddGuardianSheetView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var authService: AuthService
     let guardianService = GuardianService()
+    let notificationService = NotificationService()
     @State var searchText: String = ""
     @State var guardians: [Profile] = []
     @State var selectedGuardians = Set<UUID>()
@@ -43,7 +44,9 @@ struct AddGuardianSheetView: View {
                         if !selectedGuardians.isEmpty {
                             let selectedIds = Array(selectedGuardians).map(\.uuidString)
                             Task {
-                                await guardianService.addGuardians(userId: authService.user!.id.uuidString, guardianIds: selectedIds)
+                                let elderId = authService.user!.id.uuidString
+                                await guardianService.addGuardians(userId: elderId, guardianIds: selectedIds)
+                                await notificationService.sendInvitationNotification(from: elderId, to: selectedIds)
                             }
                         }
                         dismiss()
@@ -55,8 +58,10 @@ struct AddGuardianSheetView: View {
             .task {
                 Task {
                     let allGuardians = await guardianService.getAllGuardians()
-                    var confirmedGuardians = (await guardianService.getConfirmedGuardiansOfUser(userId: authService.user!.id.uuidString))
-                        .map(\.guardianId)
+//                    var confirmedGuardians = (await guardianService.getConfirmedGuardiansOfUser(userId: authService.user!.id.uuidString))
+//                        .map(\.guardianId)
+                    let confirmedGuardians = (await guardianService.getConfirmedGuardiansOfUser(userId: authService.user!.id.uuidString))
+                        .map(\.id)
                     guardians = allGuardians.filter { !confirmedGuardians.contains($0.id) }
                 }
             }

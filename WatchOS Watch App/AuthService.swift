@@ -22,7 +22,6 @@ class AuthService {
     
     @objc
     func setSupabaseSession(_ notification: Notification) {
-        print(notification.object)
         guard let context = notification.object as? [String: Any] else { return }
         
         guard let accessToken = context["accessToken"] as? String,

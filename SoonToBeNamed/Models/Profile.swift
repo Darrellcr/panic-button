@@ -28,7 +28,7 @@ struct Profile: Codable, Hashable, Identifiable {
 }
 
 extension Profile {
-    init(id: UUID, fullName: String, email: String) {
+    init(id: UUID, fullName: String, email: String!) {
         self.id = id
         self.email = email
         self.fullName = fullName

@@ -8,17 +8,24 @@
 import SwiftUI
 
 struct ProfilePictureView: View {
+    var size: CGFloat
+    
+    init(size: CGFloat = 40) {
+        self.size = size
+    }
+    
     var body: some View {
-        Circle()
-            .fill(
-                LinearGradient(
-                    gradient: Gradient(colors: [.red, .blue]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
-            .frame(width: 40, height: 40)
-            .padding(.horizontal)
+        ZStack {
+            Circle()
+                .fill(Color(.systemGray5)) // subtle highlight color
+                .frame(width: size, height: size)
+                .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
+
+            Image(systemName: "person.fill")
+                .foregroundColor(.primary)
+                .font(.system(size: size/2, weight: .medium))
+        }
+        .padding(.horizontal)
     }
 }
 

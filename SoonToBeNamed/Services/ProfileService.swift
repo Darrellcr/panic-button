@@ -9,6 +9,21 @@ import Foundation
 import Supabase
 
 class ProfileService {
+    public func getProfile(uuid: String) async -> Profile? {
+        do {
+            return try await supabase
+                .from("profiles")
+                .select()
+                .eq("id", value: uuid)
+                .single()
+                .execute()
+                .value
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
     public func getRole(uuid: String) async -> Role? {
         do {
             let profile: Profile = try await supabase

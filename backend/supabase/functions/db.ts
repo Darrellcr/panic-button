@@ -5,7 +5,6 @@ const supabaseUrl = Deno.env.get("FUNCTIONS_SUPABASE_URL")!;
 const supabaseKey = Deno.env.get("FUNCTIONS_SUPABASE_SERVICE_ROLE_KEY")!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const BATCH_SIZE = 100;
 
 export async function fetchRegisteredDevices(
   options: {
@@ -65,8 +64,68 @@ export async function fetchRegisteredDevices(
       throw error;
     }
   }
-
   console.log(`[Devices] Completed fetch. Total devices: ${devices.length}`);
 
   return devices;
+}
+
+export async function fetchGuardianDeviceTokens(userId: string) {
+  const { data: guardians, error: guardianErr } = await supabase
+    .from('guardians')
+    .select('guardian_id')
+    .eq('elder_id', userId)
+    .eq('confirmed_by_guardian', true)
+    
+  if (guardianErr || !guardians) {
+    console.error('Error fetching guardians:', guardianErr)
+    return []
+  }
+
+  const guardianIds = guardians.map((g) => g.guardian_id)
+
+  if (guardianIds.length === 0) return []
+
+  // Step 2: Get device tokens for guardian user IDs
+  const { data: tokens, error: tokenErr } = await supabase
+    .from('device_tokens')
+    .select('device_token')
+    .in('user_id', guardianIds)
+
+  if (tokenErr || !tokens) {
+    console.error('Error fetching device tokens:', tokenErr)
+    return []
+  }
+
+  return tokens.map((t) => t.device_token)
+}
+
+export async function fetchUsersTokens(userIds: string[]) {
+  if (userIds.length === 0) return []
+
+  const { data: tokens, error } = await supabase
+    .from('device_tokens')
+    .select('device_token')
+    .in('user_id', userIds)
+
+  if (error || !tokens) {
+    console.error('Error fetching device tokens:', error)
+    return []
+  }
+
+  return tokens.map((t) => t.device_token)
+}
+
+export async function fetchUserFullName(userId: string) {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('full_name')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    console.error('Error fetching user full name:', error)
+    return null
+  }
+
+  return data?.full_name || null
 }

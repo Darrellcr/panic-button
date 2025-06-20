@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct ElderlySOSView: View {
+    @EnvironmentObject var authService: AuthService
+    let notificationService = NotificationService()
+    let locationManager = LocationManager()
+    
     var body: some View {
         Button {
-            
+            Task {
+                await notificationService.sendSOSNotification(fromUserId: authService.user!.id.uuidString)
+            }
         } label: {
             ZStack {
                 Circle()
@@ -26,6 +33,9 @@ struct ElderlySOSView: View {
                     .font(.system(size: 64, weight: .bold))
                     .foregroundStyle(.white)
             }
+        }
+        .task {
+            
         }
     }
 }

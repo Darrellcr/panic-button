@@ -2,6 +2,7 @@
 export interface NotificationPayload {
   title: string;
   body: string;
+  category: string;
   data?: Record<string, any>;
 }
 

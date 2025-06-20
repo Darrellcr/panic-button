@@ -8,6 +8,11 @@ import SwiftUI
 import AuthenticationServices
 
 struct LoginView: View {
+    #if targetEnvironment(simulator)
+    @State var email: String = ""
+    @State var password: String = ""
+    #endif
+    
     @EnvironmentObject var authService: AuthService
     private var profileService = ProfileService()
     
@@ -24,6 +29,36 @@ struct LoginView: View {
                     .frame(width: 150, height: 150)
                     .padding(.bottom, 50)
                 
+                #if targetEnvironment(simulator)
+                TextField("asd", text: $email)
+                    .textInputAutocapitalization(.never)
+                SecureField("ewq", text: $password)
+                
+                Button("Login") {
+                    Task {
+                        do {
+                            await MainActor.run {
+                                authService.isLoading = true
+                            }
+                            try await authService.signInWithEmail(email: email, password: password)
+                            if let user = authService.user {
+                                let uuidString = user.id.uuidString
+                                let role = await profileService.getRole(uuid: uuidString)
+                                await MainActor.run {
+                                    authService.role = role
+                                }
+                            }
+                            await MainActor.run {
+                                authService.isLoading = false
+                            }
+                        } catch {
+                            dump(error)
+                        }
+                    }
+                }
+                .buttonStyle(.bordered)
+                    
+                #else
                 SignInWithAppleButton { request in
                     request.requestedScopes = [.email, .fullName]
                 } onCompletion: { result in
@@ -51,6 +86,7 @@ struct LoginView: View {
                 .frame(maxWidth: 300, maxHeight: 50)
                 .padding(.horizontal)
                 .signInWithAppleButtonStyle(.white)
+                #endif
             }
         }
     }
