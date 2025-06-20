@@ -21,9 +21,9 @@ struct ElderlyView: View {
                 Tab("History", systemImage: "list.bullet.clipboard.fill") {
                     Button("Logout") {
                         Task {
-                            //                do {
-                            //                    try await authService.logout()
-                            //                }
+                            do {
+                                try await authService.logout()
+                            }
                         }
                     }
                 }

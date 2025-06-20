@@ -10,13 +10,17 @@ import CoreLocation
 
 struct ElderlySOSView: View {
     @EnvironmentObject var authService: AuthService
+    let emergencyService = EmergencyService()
     let notificationService = NotificationService()
     let locationManager = LocationManager()
     
     var body: some View {
         Button {
             Task {
-                await notificationService.sendSOSNotification(fromUserId: authService.user!.id.uuidString)
+                let uid = authService.user!.id.uuidString
+                await notificationService.sendSOSNotification(fromUserId: uid)
+                await emergencyService.insertEmergency(
+                    elder_id: uid, longitude: locationManager.longitude ?? 0, latitude: locationManager.latitude ?? 0)
             }
         } label: {
             ZStack {

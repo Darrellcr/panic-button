@@ -69,11 +69,12 @@ export async function fetchRegisteredDevices(
   return devices;
 }
 
-export async function fetchGuardianDeviceTokens(userId: string) {
+export async function fetchGuardianDeviceTokens(elderId: string) {
+  console.log("elderId ", elderId)
   const { data: guardians, error: guardianErr } = await supabase
     .from('guardians')
     .select('guardian_id')
-    .eq('elder_id', userId)
+    .eq('elder_id', elderId)
     .eq('confirmed_by_guardian', true)
     
   if (guardianErr || !guardians) {

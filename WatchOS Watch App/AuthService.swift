@@ -14,7 +14,7 @@ class AuthService {
     func loadSession() async {
         do {
             session = try await supabase.auth.session
-            print(self.session?.accessToken)
+            print("access token: \(self.session?.accessToken)")
         } catch {
             print("Error loading session: \(error)")
         }

@@ -47,7 +47,7 @@ final class NotificationService {
                     "send-notification",
                     options: .init(
                         method: .post,
-                        body: ["userId": "edfbfda70a52426d7310f752392454eafb701039190ed16f1a77ea1302cc9e3a"]
+                        body: ["elderId": fromUserId]
                     )
                 )
         } catch {

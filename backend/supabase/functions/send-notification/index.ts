@@ -10,9 +10,9 @@ import { fetchGuardianDeviceTokens } from "../db.ts"
 console.log("Hello from Functions!")
 
 Deno.serve(async (req) => {
-  const { userId } = await req.json()
+  const { elderId } = await req.json()
 
-  const deviceTokens = await fetchGuardianDeviceTokens(userId)
+  const deviceTokens = await fetchGuardianDeviceTokens(elderId)
   console.log("Guardian device tokens:", deviceTokens)
   console.log(await sendNotification({
     title: "🆘 SOS Alert: Your dad activated the SOS button.",

@@ -20,7 +20,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
+        print("requestAlwaysAuthorization")
         locationManager.startUpdatingLocation()
     }
 
