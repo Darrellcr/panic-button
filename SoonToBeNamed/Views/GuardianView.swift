@@ -137,7 +137,13 @@ struct GuardianView: View {
         .alert("Please insert the reason elderly click the SOS", isPresented: $buttonClick) {
 //            TextField("Reason", value: $textField, format:.)
             TextField("", text: $textField)
-            Button("Oke", role: .cancel){}
+            Button("Cancel", role: .cancel){
+                textField = ""
+            }
+            Button("Done"){
+                print(textField)
+                textField = ""
+            }.disabled(textField.isEmpty)
         }
         
     }
