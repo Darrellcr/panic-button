@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5B2B21622DFB2B900020CEC1"
-               BuildableName = "SoonToBeNamed.app"
-               BlueprintName = "SoonToBeNamed"
+               BuildableName = "SafeTap.app"
+               BlueprintName = "SafeTap"
                ReferencedContainer = "container:SoonToBeNamed.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5B2B21622DFB2B900020CEC1"
-            BuildableName = "SoonToBeNamed.app"
-            BlueprintName = "SoonToBeNamed"
+            BuildableName = "SafeTap.app"
+            BlueprintName = "SafeTap"
             ReferencedContainer = "container:SoonToBeNamed.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5B2B21622DFB2B900020CEC1"
-            BuildableName = "SoonToBeNamed.app"
-            BlueprintName = "SoonToBeNamed"
+            BuildableName = "SafeTap.app"
+            BlueprintName = "SafeTap"
             ReferencedContainer = "container:SoonToBeNamed.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

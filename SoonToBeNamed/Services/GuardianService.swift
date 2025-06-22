@@ -30,7 +30,7 @@ class GuardianService {
     
     func getAllGuardians() async -> [Profile] {
         do {
-            var profiles: [Profile] = try await supabase
+            let profiles: [Profile] = try await supabase
                     .from("profiles")
                     .select()
                     .eq("role", value: Role.guardian.rawValue)
@@ -63,8 +63,6 @@ class GuardianService {
     
     func acceptInvitation(elderId: String, guardianId: String) async -> Bool {
         do {
-            print(elderId)
-            print(guardianId)
             try await supabase
                 .from("guardians")
                 .update(["confirmed_by_guardian": true])

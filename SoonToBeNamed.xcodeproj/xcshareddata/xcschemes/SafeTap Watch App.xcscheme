@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2634FF3D2E02ACF700C19204"
-               BuildableName = "WatchOS Watch App.app"
-               BlueprintName = "WatchOS Watch App"
+               BuildableName = "SafeTap Watch App.app"
+               BlueprintName = "SafeTap Watch App"
                ReferencedContainer = "container:SoonToBeNamed.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5B2B21622DFB2B900020CEC1"
-               BuildableName = "SoonToBeNamed.app"
-               BlueprintName = "SoonToBeNamed"
+               BuildableName = "SafeTap.app"
+               BlueprintName = "SafeTap"
                ReferencedContainer = "container:SoonToBeNamed.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -59,8 +59,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2634FF3D2E02ACF700C19204"
-            BuildableName = "WatchOS Watch App.app"
-            BlueprintName = "WatchOS Watch App"
+            BuildableName = "SafeTap Watch App.app"
+            BlueprintName = "SafeTap Watch App"
             ReferencedContainer = "container:SoonToBeNamed.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2634FF3D2E02ACF700C19204"
-            BuildableName = "WatchOS Watch App.app"
-            BlueprintName = "WatchOS Watch App"
+            BuildableName = "SafeTap Watch App.app"
+            BlueprintName = "SafeTap Watch App"
             ReferencedContainer = "container:SoonToBeNamed.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

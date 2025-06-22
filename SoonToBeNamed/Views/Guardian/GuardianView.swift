@@ -12,45 +12,58 @@ struct GuardianView: View {
     @State var showAlert: Bool = false
     @State var elderProfile: Profile?
     let guardianService = GuardianService()
+    let notificationService = NotificationService()
     
     var body: some View {
-        VStack {
-            Text("Guardian View")
-            Button("Logout") {
-                Task {
-                    do {
-                        try await authService.logout()
-                    }
+        NavigationStack {
+            
+            TabView {
+                
+                Tab("SOS", systemImage: "sos.circle.fill"){
+                    GuardianSOSView()
                 }
-            }
-        }
-        .alert("Guardian Invitation", isPresented: $showAlert, presenting: elderProfile) { elderProfile in
-            Button("Accept") {
-                Task {
-                    let success = await guardianService.acceptInvitation(elderId: elderProfile.id.uuidString, guardianId: authService.user!.id.uuidString)
-                    print(success)
-                    if success {
-                        await MainActor.run {
-                            showAlert = false
+                Tab("History", systemImage: "list.clipboard"){
+                    Button("Logout") {
+                        Task {
+                            do {
+                                try await authService.logout()
+                            }
                         }
                     }
                 }
+                
+                
+                
             }
-            Button("Decline") {
-                showAlert = false
-            }
-        } message: { elderProfile in
-            Text("Do you want to be the guardian for: \(elderProfile.fullName!)?")
-        }
-        .task {
-            for await notification in NotificationCenter.default.notifications(named: .invitationReceived) {
-                let profile = notification.object as! Profile
-                Task {
-                    await MainActor.run {
-                        elderProfile = profile
-                        showAlert = true
+            .alert("Guardian Invitation", isPresented: $showAlert, presenting: elderProfile) { elderProfile in
+                Button("Accept") {
+                    Task {
+                        let success = await guardianService.acceptInvitation(elderId: elderProfile.id.uuidString, guardianId: authService.user!.id.uuidString)
+                        print(success)
+                        if success {
+                            await MainActor.run {
+                                showAlert = false
+                            }
+                        }
                     }
-                }   
+                }
+                Button("Decline") {
+                    showAlert = false
+                }
+            } message: { elderProfile in
+                Text("Do you want to be the guardian for: \(elderProfile.fullName!)?")
+            }
+            .task {
+                notificationService.registerForRemoteNotifications()
+                for await notification in NotificationCenter.default.notifications(named: .invitationReceived) {
+                    let profile = notification.object as! Profile
+                    Task {
+                        await MainActor.run {
+                            elderProfile = profile
+                            showAlert = true
+                        }
+                    }
+                }
             }
         }
     }

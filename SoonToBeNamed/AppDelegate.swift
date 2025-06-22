@@ -39,11 +39,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 
                 try await supabase
                     .from("device_tokens")
-                    .insert([
+                    .upsert([
                         "user_id": userId,
                         "device_token": tokenString,
                         "device_type": "ios"
-                    ])
+                    ], onConflict: "user_id,device_type", ignoreDuplicates: false)
                     .execute()
                 print("Successfully stored device token")
             } catch {
@@ -112,7 +112,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             )
             NotificationCenter.default.post(name: .invitationReceived, object: profile)
         } else if notification.request.content.categoryIdentifier == "sos" {
-            print("sos received")
+            NotificationCenter.default.post(name: .emergencyReceived, object: nil)
         }
         
         
