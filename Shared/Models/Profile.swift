@@ -7,10 +7,6 @@
 
 import Foundation
 
-enum Role: String, Codable {
-    case guardian, elderly
-}
-
 struct Profile: Codable, Hashable, Identifiable {
     let id: UUID
     let username: String?

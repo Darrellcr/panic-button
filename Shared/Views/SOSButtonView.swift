@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct SOSButtonView: View {
+    let size: CGFloat
+    
+    init(size: CGFloat = 150) {
+        self.size = size
+    }
+    
     var body: some View {
         ZStack {
             // Bayangan luar lembut
             Circle()
                 .fill(Color.black)
-                .frame(width: 150, height: 150)
+                .frame(width: size, height: size)
                 .shadow(color: Color.black, radius: 10, x: 0, y: 0)
                 .overlay(
                     // Garis luar tipis glossy
@@ -35,11 +41,17 @@ struct SOSButtonView: View {
                         .padding(6)
                 )
             
+            #if os(iOS)
+            Text("SOS")
+                .font(.system(size: 72))
+                .bold()
+                .foregroundStyle(.white)
+            #elseif os(watchOS)
             Text("SOS")
                 .font(.largeTitle)
                 .bold()
                 .foregroundStyle(.white)
-            
+            #endif
         }
     }
 }

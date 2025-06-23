@@ -58,7 +58,6 @@ extension AppDelegate: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         print("didReceiveApplicationContext")
-        print(applicationContext)
         NotificationCenter.default.post(
             name: .authDidChange,
             object: applicationContext

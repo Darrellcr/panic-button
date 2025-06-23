@@ -11,6 +11,9 @@
 		5B2B21782DFB2BD50020CEC1 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B21772DFB2BD50020CEC1 /* Auth */; };
 		5B2B217A2DFB2BD50020CEC1 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B21792DFB2BD50020CEC1 /* PostgREST */; };
 		5B2B217C2DFB2BD50020CEC1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B217B2DFB2BD50020CEC1 /* Supabase */; };
+		5B3BA2252E08335100564EA0 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3BA2242E08335100564EA0 /* Realtime */; };
+		5B3BA2272E08336300564EA0 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3BA2262E08336300564EA0 /* Functions */; };
+		5B3BA2292E08336300564EA0 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3BA2282E08336300564EA0 /* Realtime */; };
 		5B6A28DC2E030A4500862A5F /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 5B6A28DB2E030A4500862A5F /* Auth */; };
 		5B6A28DE2E030A4500862A5F /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 5B6A28DD2E030A4500862A5F /* Functions */; };
 		5B6A28E02E030A4500862A5F /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 5B6A28DF2E030A4500862A5F /* PostgREST */; };
@@ -57,6 +60,11 @@
 			path = SoonToBeNamed;
 			sourceTree = "<group>";
 		};
+		5B3BA2142E08200800564EA0 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +75,7 @@
 				5B6A28E22E030A4500862A5F /* Supabase in Frameworks */,
 				5B6A28E02E030A4500862A5F /* PostgREST in Frameworks */,
 				5B6A28DE2E030A4500862A5F /* Functions in Frameworks */,
+				5B3BA2252E08335100564EA0 /* Realtime in Frameworks */,
 				5B6A28DC2E030A4500862A5F /* Auth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,6 +86,8 @@
 			files = (
 				5B2B217A2DFB2BD50020CEC1 /* PostgREST in Frameworks */,
 				5B2B21782DFB2BD50020CEC1 /* Auth in Frameworks */,
+				5B3BA2272E08336300564EA0 /* Functions in Frameworks */,
+				5B3BA2292E08336300564EA0 /* Realtime in Frameworks */,
 				5B2B217C2DFB2BD50020CEC1 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +98,7 @@
 		5B2B21582DFB2B7C0020CEC1 = {
 			isa = PBXGroup;
 			children = (
+				5B3BA2142E08200800564EA0 /* Shared */,
 				5B2B21652DFB2B910020CEC1 /* SoonToBeNamed */,
 				2634FF3F2E02ACF700C19204 /* WatchOS Watch App */,
 				5B6A28DA2E030A4500862A5F /* Frameworks */,
@@ -127,6 +139,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				2634FF3F2E02ACF700C19204 /* WatchOS Watch App */,
+				5B3BA2142E08200800564EA0 /* Shared */,
 			);
 			name = "SafeTap Watch App";
 			packageProductDependencies = (
@@ -134,6 +147,7 @@
 				5B6A28DD2E030A4500862A5F /* Functions */,
 				5B6A28DF2E030A4500862A5F /* PostgREST */,
 				5B6A28E12E030A4500862A5F /* Supabase */,
+				5B3BA2242E08335100564EA0 /* Realtime */,
 			);
 			productName = "WatchOS Watch App";
 			productReference = 2634FF3E2E02ACF700C19204 /* SafeTap Watch App.app */;
@@ -155,12 +169,15 @@
 			);
 			fileSystemSynchronizedGroups = (
 				5B2B21652DFB2B910020CEC1 /* SoonToBeNamed */,
+				5B3BA2142E08200800564EA0 /* Shared */,
 			);
 			name = SafeTap;
 			packageProductDependencies = (
 				5B2B21772DFB2BD50020CEC1 /* Auth */,
 				5B2B21792DFB2BD50020CEC1 /* PostgREST */,
 				5B2B217B2DFB2BD50020CEC1 /* Supabase */,
+				5B3BA2262E08336300564EA0 /* Functions */,
+				5B3BA2282E08336300564EA0 /* Realtime */,
 			);
 			productName = SoonToBeNamed;
 			productReference = 5B2B21632DFB2B900020CEC1 /* SafeTap.app */;
@@ -311,6 +328,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = Testing;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = C4A14.drl.SafeTap;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -390,6 +408,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = Testing;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = C4A14.drl.SafeTap;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -489,6 +508,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = Testign;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Testing purpose";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Testing purpose";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -581,6 +601,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SafeTap;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = Testign;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Testing purpose";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Testing purpose";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -673,6 +694,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
+		};
+		5B3BA2242E08335100564EA0 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		5B3BA2262E08336300564EA0 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		5B3BA2282E08336300564EA0 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2B21762DFB2BD50020CEC1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
 		};
 		5B6A28DB2E030A4500862A5F /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;

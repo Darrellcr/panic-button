@@ -23,20 +23,7 @@ struct ElderlySOSView: View {
                     elder_id: uid, longitude: locationManager.longitude ?? 0, latitude: locationManager.latitude ?? 0)
             }
         } label: {
-            ZStack {
-                Circle()
-                    .fill(Color.red)
-                    .padding(28)
-                Circle()
-                    .fill(Color.yellow)
-                    .padding(56)
-                Circle()
-                    .fill(Color.red)
-                    .padding(84)
-                Text("SOS")
-                    .font(.system(size: 64, weight: .bold))
-                    .foregroundStyle(.white)
-            }
+            SOSButtonView(size: 300)
         }
         .task {
             

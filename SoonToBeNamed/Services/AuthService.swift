@@ -98,11 +98,19 @@ final class AuthService: ObservableObject {
     }
     
     func updateWatchAuthSession() {
-        guard let session else { return }
-        let context = [
-            "accessToken": session.accessToken,
-            "refreshToken": session.refreshToken
-        ]
+        var context: [String: Any] = [:]
+        
+        if let session {
+            context = [
+                "accessToken": session.accessToken,
+                "refreshToken": session.refreshToken
+            ]
+        } else {
+            context = [
+                "accessToken": "",
+                "refreshToken": ""
+            ]
+        }
         updateAppContext(context)
     }
     

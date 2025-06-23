@@ -133,7 +133,10 @@ struct GuardianSOSView: View {
     }
     
     fileprivate func EmergencyView(_ elderCoordinate: CLLocationCoordinate2D) -> some View {
+        let currentLocation = CLLocationCoordinate2D(latitude: locationManager.latitude!, longitude: locationManager.longitude!)
+        let range = haversine(p1: currentLocation, p2: elderCoordinate)
         return VStack{
+            Text("You are \(String(format: "%.2f", range)) km away from your loved one")
             MapView(elderCoordinate)
             Button(action: {
                 showEndEmergencyAlert.toggle()
