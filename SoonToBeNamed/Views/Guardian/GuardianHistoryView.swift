@@ -18,23 +18,23 @@ struct GuardianHistoryView: View {
     @State var isLoading = true
     
     var body: some View {
-        NavigationStack{
-            VStack {
-                if isLoading {
-                    VStack {
-                        VStack(spacing: 16) {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .secondary))
-                                .scaleEffect(2)
-                        }
+        VStack {
+            if isLoading {
+                VStack {
+                    VStack(spacing: 16) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .secondary))
+                            .scaleEffect(2)
                     }
-                } else {
-                    HistoryView(historyItems: historyItems)
                 }
+            } else {
+                HistoryView(historyItems: historyItems)
             }
-            .navigationTitle("History")
-            .task {
-                let uid = authService.user!.id.uuidString
+        }
+        .navigationTitle("History")
+        .task {
+            if let user = authService.user {  
+                let uid = user.id.uuidString
                 let elder = await guardianService.getElderByGuardianId(guardianId: uid)
                 if let elder {
                     let emergencies = await emergencyService.getAllEmergencies(
@@ -49,16 +49,17 @@ struct GuardianHistoryView: View {
                 
             }
         }
-            
+        
+        
     }
     
     func buildHistoryItems(from emergencies: [Emergency]) async -> [HistoryItem] {
         var historyItems: [HistoryItem] = []
-
+        
         for emergency in emergencies {
             let location = CLLocation(latitude: emergency.latitude, longitude: emergency.longitude)
             let placeName = await getPlaceName(from: location)
-
+            
             let item = HistoryItem(
                 date: emergency.createdAt,
                 location: placeName,
@@ -66,7 +67,7 @@ struct GuardianHistoryView: View {
             )
             historyItems.append(item)
         }
-
+        
         return historyItems
     }
     

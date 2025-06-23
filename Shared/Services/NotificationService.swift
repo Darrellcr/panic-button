@@ -28,6 +28,7 @@ final class NotificationService {
             .execute()
     }
     
+    #if os(iOS)
     func registerForRemoteNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
@@ -39,6 +40,7 @@ final class NotificationService {
             }
         }
     }
+    #endif
     
     func sendSOSNotification(fromUserId: String) async {
         do {

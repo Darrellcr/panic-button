@@ -84,14 +84,29 @@ struct ElderlyProfileView: View {
             .padding(.horizontal, 20)
         }
         .navigationTitle("Profile")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("logout") {
+                    Task {
+                        do {
+                            try await authService.logout()
+                        } catch {
+                            print("Fail to logout")
+                        }
+                    }
+                }
+            }
+        }
         .sheet(isPresented: $showAddGuardianSheet) {
             AddGuardianSheetView()
         }
         .task {
             Task {
-                let guardians = await guardianService.getConfirmedGuardiansOfUser(userId: authService.user!.id.uuidString)
-                await MainActor.run {
-                    confirmedGuardians = guardians
+                if let uid = authService.user?.id.uuidString {
+                    let guardians = await guardianService.getConfirmedGuardiansOfUser(userId: uid)
+                    await MainActor.run {
+                        confirmedGuardians = guardians
+                    }
                 }
             }
         }

@@ -8,7 +8,7 @@
 import Foundation
 
 class EmergencyService {
-    func insertEmergency(elder_id: String, longitude: Double, latitude: Double) async -> Emergency? {
+    func insertEmergency(elder_id: String, longitude: Double, latitude: Double) async -> Void {
         let emergency = EmergencyRequestBody(
             elder_id: elder_id, longitude: longitude, latitude: latitude
         )
@@ -19,10 +19,8 @@ class EmergencyService {
                 .execute()
                 .value
             
-            return insertedEmergency
         } catch {
             print("Error inserting emergency \(error)")
-            return nil
         }
     }
     
@@ -42,6 +40,26 @@ class EmergencyService {
                 .select()
                 .eq("resolved", value: false)
                 .in("elder_id", values: uuids)
+                .order("created_at", ascending: false)
+                .limit(1)
+                .single()
+                .execute()
+                .value
+            
+            return emergency
+        } catch {
+            print("Error getting active emergency \(error)")
+            return nil
+        }
+    }
+    
+    func getActiveEmergencyByElderId(elderId: String) async -> Emergency? {
+        do {
+            let emergency: Emergency? = try await supabase
+                .from("emergencies")
+                .select()
+                .eq("elder_id", value: elderId)
+                .eq("resolved", value: false)
                 .order("created_at", ascending: false)
                 .limit(1)
                 .single()

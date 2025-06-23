@@ -47,28 +47,13 @@ struct WidgetIOSEntryView : View {
                 Text("SOS")
                     .font(.title)
                     .bold()
-//                    .foregroundStyle(.white)
                     .offset(x: -10)
             }
-//            .padding(.horizontal,10)
-           
+            .widgetURL(URL(string: "myapp://sos"))
+            .containerBackground(.fill.tertiary, for: .widget)
         }
-//        ZStack{
-//            Capsule()
-//                .fill(.red)
-//            HStack{
-//                Image("logo_transparent")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 40)
-//                Text("Dua")
-//            }
-//        }
-        .widgetURL(URL(string: "myapp://sos"))
-        .containerBackground(.fill.tertiary, for: .widget)
     }
 }
-
 //@main
 struct WidgetIOS: Widget {
     let kind: String = "WatchOS"

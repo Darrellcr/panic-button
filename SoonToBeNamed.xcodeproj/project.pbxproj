@@ -11,6 +11,9 @@
 		5B2B21782DFB2BD50020CEC1 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B21772DFB2BD50020CEC1 /* Auth */; };
 		5B2B217A2DFB2BD50020CEC1 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B21792DFB2BD50020CEC1 /* PostgREST */; };
 		5B2B217C2DFB2BD50020CEC1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2B217B2DFB2BD50020CEC1 /* Supabase */; };
+		5B3A004C2E09935A0034F63E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B3AFD392E0961610034F63E /* WidgetKit.framework */; };
+		5B3A004D2E09935A0034F63E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B3AFD3B2E0961610034F63E /* SwiftUI.framework */; };
+		5B3A005E2E09935B0034F63E /* WidgetIOSExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5B3A004B2E09935A0034F63E /* WidgetIOSExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5B3AFD3A2E0961610034F63E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B3AFD392E0961610034F63E /* WidgetKit.framework */; };
 		5B3AFD3C2E0961610034F63E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B3AFD3B2E0961610034F63E /* SwiftUI.framework */; };
 		5B3AFD472E0961610034F63E /* WatchOSExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5B3AFD382E0961610034F63E /* WatchOSExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -30,6 +33,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2634FF3D2E02ACF700C19204;
 			remoteInfo = "WatchOS Watch App";
+		};
+		5B3A005C2E09935B0034F63E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B2B21592DFB2B7C0020CEC1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B3A004A2E09935A0034F63E;
+			remoteInfo = WidgetIOSExtension;
 		};
 		5B3AFD452E0961610034F63E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +62,17 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B3A005F2E09935B0034F63E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5B3A005E2E09935B0034F63E /* WidgetIOSExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B3AFD482E0961610034F63E /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -68,12 +89,20 @@
 /* Begin PBXFileReference section */
 		2634FF3E2E02ACF700C19204 /* SafeTap Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SafeTap Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2B21632DFB2B900020CEC1 /* SafeTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B3A004B2E09935A0034F63E /* WidgetIOSExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetIOSExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3AFD382E0961610034F63E /* WatchOSExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WatchOSExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3AFD392E0961610034F63E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		5B3AFD3B2E0961610034F63E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5B3A00632E09935B0034F63E /* Exceptions for "WidgetIOS" folder in "WidgetIOSExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5B3A004A2E09935A0034F63E /* WidgetIOSExtension */;
+		};
 		5B3AFC232E095C590034F63E /* Exceptions for "WatchOS Watch App" folder in "SafeTap" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -110,6 +139,14 @@
 		5B2B21652DFB2B910020CEC1 /* SoonToBeNamed */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SoonToBeNamed;
+			sourceTree = "<group>";
+		};
+		5B3A004E2E09935A0034F63E /* WidgetIOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5B3A00632E09935B0034F63E /* Exceptions for "WidgetIOS" folder in "WidgetIOSExtension" target */,
+			);
+			path = WidgetIOS;
 			sourceTree = "<group>";
 		};
 		5B3AFD3D2E0961610034F63E /* WatchOS */ = {
@@ -152,6 +189,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B3A00482E09935A0034F63E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B3A004D2E09935A0034F63E /* SwiftUI.framework in Frameworks */,
+				5B3A004C2E09935A0034F63E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B3AFD352E0961610034F63E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -171,6 +217,7 @@
 				5B2B21652DFB2B910020CEC1 /* SoonToBeNamed */,
 				2634FF3F2E02ACF700C19204 /* WatchOS Watch App */,
 				5B3AFD3D2E0961610034F63E /* WatchOS */,
+				5B3A004E2E09935A0034F63E /* WidgetIOS */,
 				5B6A28DA2E030A4500862A5F /* Frameworks */,
 				5B2B21642DFB2B900020CEC1 /* Products */,
 			);
@@ -182,6 +229,7 @@
 				5B2B21632DFB2B900020CEC1 /* SafeTap.app */,
 				2634FF3E2E02ACF700C19204 /* SafeTap Watch App.app */,
 				5B3AFD382E0961610034F63E /* WatchOSExtension.appex */,
+				5B3A004B2E09935A0034F63E /* WidgetIOSExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -236,11 +284,13 @@
 				5B2B21602DFB2B900020CEC1 /* Frameworks */,
 				5B2B21612DFB2B900020CEC1 /* Resources */,
 				2634FF492E02ACF800C19204 /* Embed Watch Content */,
+				5B3A005F2E09935B0034F63E /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				2634FF472E02ACF800C19204 /* PBXTargetDependency */,
+				5B3A005D2E09935B0034F63E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				5B2B21652DFB2B910020CEC1 /* SoonToBeNamed */,
@@ -257,6 +307,28 @@
 			productName = SoonToBeNamed;
 			productReference = 5B2B21632DFB2B900020CEC1 /* SafeTap.app */;
 			productType = "com.apple.product-type.application";
+		};
+		5B3A004A2E09935A0034F63E /* WidgetIOSExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B3A00622E09935B0034F63E /* Build configuration list for PBXNativeTarget "WidgetIOSExtension" */;
+			buildPhases = (
+				5B3A00472E09935A0034F63E /* Sources */,
+				5B3A00482E09935A0034F63E /* Frameworks */,
+				5B3A00492E09935A0034F63E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5B3A004E2E09935A0034F63E /* WidgetIOS */,
+			);
+			name = WidgetIOSExtension;
+			packageProductDependencies = (
+			);
+			productName = WidgetIOSExtension;
+			productReference = 5B3A004B2E09935A0034F63E /* WidgetIOSExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		5B3AFD372E0961610034F63E /* WatchOSExtension */ = {
 			isa = PBXNativeTarget;
@@ -296,6 +368,9 @@
 					5B2B21622DFB2B900020CEC1 = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					5B3A004A2E09935A0034F63E = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					5B3AFD372E0961610034F63E = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -321,6 +396,7 @@
 				5B2B21622DFB2B900020CEC1 /* SafeTap */,
 				2634FF3D2E02ACF700C19204 /* SafeTap Watch App */,
 				5B3AFD372E0961610034F63E /* WatchOSExtension */,
+				5B3A004A2E09935A0034F63E /* WidgetIOSExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -334,6 +410,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5B2B21612DFB2B900020CEC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B3A00492E09935A0034F63E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -364,6 +447,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B3A00472E09935A0034F63E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B3AFD342E0961610034F63E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +468,11 @@
 			isa = PBXTargetDependency;
 			target = 2634FF3D2E02ACF700C19204 /* SafeTap Watch App */;
 			targetProxy = 2634FF462E02ACF800C19204 /* PBXContainerItemProxy */;
+		};
+		5B3A005D2E09935B0034F63E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B3A004A2E09935A0034F63E /* WidgetIOSExtension */;
+			targetProxy = 5B3A005C2E09935B0034F63E /* PBXContainerItemProxy */;
 		};
 		5B3AFD462E0961610034F63E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -756,6 +851,167 @@
 			};
 			name = Release;
 		};
+		5B3A00602E09935B0034F63E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 43L9JAD6SS;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetIOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetIOS;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = C4A14.drl.SafeTap.WidgetIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5B3A00612E09935B0034F63E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 43L9JAD6SS;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetIOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetIOS;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = C4A14.drl.SafeTap.WidgetIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		5B3AFD492E0961610034F63E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -945,6 +1201,15 @@
 			buildConfigurations = (
 				5B2B216E2DFB2B910020CEC1 /* Debug */,
 				5B2B216F2DFB2B910020CEC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B3A00622E09935B0034F63E /* Build configuration list for PBXNativeTarget "WidgetIOSExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B3A00602E09935B0034F63E /* Debug */,
+				5B3A00612E09935B0034F63E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

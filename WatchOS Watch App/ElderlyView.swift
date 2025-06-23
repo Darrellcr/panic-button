@@ -13,34 +13,54 @@ struct ElderlyView: View {
     let emergencyService = EmergencyService()
     let locationManager = LocationManager()
     
-    @State private var activeEmergency: Emergency?
+    @State private var isActivated: Bool = false
+    @State private var fill: CGFloat = 0.0
     
     var body: some View {
-        SOSButtonView() {
+        SOSButtonView(fill: $fill, isActivated: $isActivated) {
             Task {
                 if let elderId = authService.session?.user.id.uuidString {
                     await notificationService.sendSOSNotification(fromUserId: elderId)
-                    let emergency = await emergencyService.insertEmergency(
+                    await emergencyService.insertEmergency(
                         elder_id: elderId,
                         longitude: locationManager.longitude ?? 0,
                         latitude: locationManager.latitude ?? 0
                     )
-                    await MainActor.run {
-                        activeEmergency = emergency
-                    }
                 }
             }
         } onDeactivate: {
-            if let emergencyId = activeEmergency?.id {
-                Task {
-                    await emergencyService.endEmergencyWithoutReason(id: emergencyId)
-                    await MainActor.run {
-                        activeEmergency = nil
+            Task {
+                if let uid = authService.session?.user.id.uuidString {
+                    let emergency = await emergencyService.getActiveEmergencyByElderId(elderId: uid)
+                    if let emergency {
+                        await emergencyService.endEmergencyWithoutReason(id: emergency.id)
+                        
                     }
                 }
             }
         }
         .buttonStyle(.plain)
+        .task {
+            await checkEmergency()
+            _ = Timer.scheduledTimer(withTimeInterval: 8.0, repeats: true) { _ in
+                Task {
+                    await checkEmergency()
+                }
+            }
+        }
+    }
+    
+    @MainActor
+    private func checkEmergency() async {
+        guard let uid = authService.session?.user.id.uuidString else { return }
+        let emergency = await emergencyService.getActiveEmergencyByElderId(elderId: uid)
+        guard let emergency else {
+            isActivated = false
+            fill = 0.0
+            return
+        }
+        isActivated = true
+        fill = 1.0
     }
 }
 

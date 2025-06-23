@@ -13,39 +13,46 @@ struct ElderlyView: View {
     @State var profile: Profile?
     
     var body: some View {
-        NavigationStack {
-            TabView {
-                Tab("SOS", systemImage: "sos.circle") {
+        
+        TabView {
+            Tab("SOS", systemImage: "sos.circle") {
+                NavigationStack {
                     ElderlySOSView()
-                }
-                Tab("History", systemImage: "list.bullet.clipboard.fill") {
-                    Button("Logout") {
-                        Task {
-                            do {
-                                try await authService.logout()
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                NavigationLink(destination: ElderlyProfileView(profile: profile)) {
+                                    ProfilePictureView()
+                                }
                             }
                         }
-                    }
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink(destination: ElderlyProfileView(profile: profile)) {
-                        ProfilePictureView()
-                    }
+            Tab("History", systemImage: "list.bullet.clipboard.fill") {
+                NavigationStack {
+                    ElderlyHistoryView()
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                NavigationLink(destination: ElderlyProfileView(profile: profile)) {
+                                    ProfilePictureView()
+                                }
+                            }
+                        }
                 }
             }
-            .task {
-                Task {
-                    let p = await profileService.getProfile(uuid: authService.user!.id.uuidString)
+        }
+        
+        .task {
+            Task {
+                if let uid = authService.user?.id.uuidString {
+                    let p = await profileService.getProfile(uuid: uid)
                     await MainActor.run {
                         profile = p
                     }
                 }
             }
         }
-        
     }
+
 }
 
 #Preview {

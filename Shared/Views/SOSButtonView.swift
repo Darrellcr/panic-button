@@ -8,16 +8,24 @@
 import SwiftUI
 
 struct SOSButtonView: View {
-    @State private var fill: CGFloat = 0.0
+    @Binding private var fill: CGFloat
+    @Binding private var isActivated: Bool
     @State private var isPressed = false
-    @State private var isActivated = false
     @State private var timerTask: DispatchWorkItem?
+    let deactivationDelay: Double = 60 * 60
     let size: CGFloat
     private let onActivate: () -> Void
     private let onDeactivate: () -> Void
     
-    init(size: CGFloat = 150, onActivate: @escaping () -> Void, onDeactivate: @escaping () -> Void) {
+    init(size: CGFloat = 150,
+         fill: Binding<CGFloat>,
+         isActivated: Binding<Bool>,
+         onActivate: @escaping () -> Void,
+         onDeactivate: @escaping () -> Void
+    ) {
         self.size = size
+        self._fill = fill
+        self._isActivated = isActivated
         self.onActivate = onActivate
         self.onDeactivate = onDeactivate
     }
@@ -127,9 +135,9 @@ struct SOSButtonView: View {
             }
         }
         .animation(.easeInOut, value: isActivated)
-        .onChange(of: isActivated) { newValue in
+        .onChange(of: isActivated) { oldValue, newValue in
             if isActivated {
-                _ = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { _ in
+                _ = Timer.scheduledTimer(withTimeInterval: deactivationDelay, repeats: false, block: { _ in
                     isActivated = false
                     fill = 0.0
                     onDeactivate()
@@ -137,11 +145,16 @@ struct SOSButtonView: View {
             }
         }
     }
+    
+    func deactivate() {
+        isActivated = false
+        fill = 0.0
+    }
 }
 
 
 #Preview {
-    SOSButtonView() {
+    SOSButtonView(fill: .constant(0.0), isActivated: .constant(false)) {
         
     } onDeactivate: {
         

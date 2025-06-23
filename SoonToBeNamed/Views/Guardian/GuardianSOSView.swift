@@ -31,21 +31,21 @@ struct GuardianSOSView: View {
     
     var body: some View {
         
-            Group {
-                if isLoading {
-                    VStack(spacing: 16) {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .secondary))
-                            .scaleEffect(2)
-                    }
-                } else if let elderCoordinate {
-                    EmergencyView(elderCoordinate)
+        Group {
+            if isLoading {
+                VStack(spacing: 16) {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .secondary))
+                        .scaleEffect(2)
                 }
-                else{
-                    EmptyStateView
-                }
+            } else if let elderCoordinate {
+                EmergencyView(elderCoordinate)
             }
-            
+            else{
+                EmptyStateView
+            }
+        }
+        .navigationTitle("SOS")
         .task {
             await checkEmergency()
             let channel = supabase.channel("emergencies")
@@ -60,12 +60,10 @@ struct GuardianSOSView: View {
                 for await change in changeStream {
                     switch change {
                     case .insert(let action):
-                        let activeEmergency = castRecordToEmergency(record: action.record)
-                        await updateMap(activeEmergency: activeEmergency)
+                        await checkEmergency()
                         break
                     case .update(let action):
-                        let activeEmergency = castRecordToEmergency(record: action.record)
-                        await updateMap(activeEmergency: activeEmergency)
+                        await checkEmergency()
                         break
                     case .delete(let action):
                         await checkEmergency()
@@ -90,7 +88,7 @@ struct GuardianSOSView: View {
     @MainActor
     func checkEmergency() async {
         isLoading = true
-        let userId = authService.user!.id.uuidString
+        guard let userId = authService.user?.id.uuidString else { return }
         let activeEmergency = await emergencyService.getActiveEmergency(guardianId: userId)
         guard let activeEmergency else {
             elderCoordinate = nil

@@ -80,6 +80,9 @@ struct LoginView: View {
                             }
                         } catch {
                             dump(error)
+                            await MainActor.run {
+                                authService.isLoading = false
+                            }
                         }
                     }
                 }

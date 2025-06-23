@@ -32,7 +32,7 @@ struct GuardianView: View {
             }
         }
         .task {
-            let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+            _ = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
                 Task {
                     await checkEmergency()
                 }

@@ -9,6 +9,7 @@ import SwiftUI
 import Supabase
 
 struct GuardianProfileView: View {
+    @EnvironmentObject var authService: AuthService
     let profile: Profile?
     
     var body: some View {
@@ -27,6 +28,20 @@ struct GuardianProfileView: View {
             
             Spacer()
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("logout") {
+                    Task {
+                        do {
+                            try await authService.logout()
+                        } catch {
+                            print("Fail to logout")
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }
 
