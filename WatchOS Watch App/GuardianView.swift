@@ -25,49 +25,17 @@ struct GuardianView: View {
     
     var body: some View {
         Group {
-            if isLoading {
-                LoadingView()
-            } else if let elderCoordinate {
+            if let elderCoordinate {
                 MapView(elderCoordinate)
             } else {
                 Text("Your loved on is safe")
             }
         }
         .task {
-            await checkEmergency()
-            await subscribeToRealtimeChannel()
-        }
-    }
-    
-    func castRecordToEmergency(record: [String: AnyJSON]) -> Emergency {
-        return try! record.decode(as: Emergency.self)
-    }
-    
-    func subscribeToRealtimeChannel() async {
-        let channel = supabase.channel("emergencies")
-        print("init channel")
-        let changeStream = channel.postgresChange(
-            AnyAction.self,
-            schema: "public",
-            table: "emergencies"
-        )
-        print("subscribing")
-        
-        await channel.subscribe()
-        print("subscribed")
-        for await change in changeStream {
-            switch change {
-            case .insert(let action):
-                let activeEmergency = castRecordToEmergency(record: action.record)
-                await updateMap(activeEmergency: activeEmergency)
-                break
-            case .update(let action):
-                let activeEmergency = castRecordToEmergency(record: action.record)
-                await updateMap(activeEmergency: activeEmergency)
-                break
-            case .delete( _):
-                await checkEmergency()
-                break
+            let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+                Task {
+                    await checkEmergency()
+                }
             }
         }
     }

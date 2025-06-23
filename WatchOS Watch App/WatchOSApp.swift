@@ -13,11 +13,7 @@ struct WatchOS_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .onOpenURL { url in
-                                    if url.host == "sos" {
-                                        // Arahkan ke SOSView
-                                    }
-                                }
+//            Text("aslkd")
         }
     }
 }
