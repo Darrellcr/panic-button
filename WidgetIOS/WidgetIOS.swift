@@ -10,28 +10,28 @@ import SwiftUI
 import AppIntents
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> WatchOSEntry {
-        WatchOSEntry(date: Date())
+    func placeholder(in context: Context) -> WidgetIOSEntry {
+        WidgetIOSEntry(date: Date())
     }
     
-    func getSnapshot(in context: Context, completion: @escaping (WatchOSEntry) -> Void) {
-        let entry = WatchOSEntry(date: Date())
+    func getSnapshot(in context: Context, completion: @escaping (WidgetIOSEntry) -> Void) {
+        let entry = WidgetIOSEntry(date: Date())
         completion(entry)
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<WatchOSEntry>) -> Void) {
-        let entry = WatchOSEntry(date: Date())
+    func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetIOSEntry>) -> Void) {
+        let entry = WidgetIOSEntry(date: Date())
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
 }
 
-struct WatchOSEntry: TimelineEntry {
+struct WidgetIOSEntry: TimelineEntry {
     let date: Date
 }
 
 
-struct WatchOSEntryView : View {
+struct WidgetIOSEntryView : View {
     var entry: Provider.Entry
     
     var body: some View {
@@ -69,13 +69,13 @@ struct WatchOSEntryView : View {
     }
 }
 
-@main
-struct WatchOS: Widget {
+//@main
+struct WidgetIOS: Widget {
     let kind: String = "WatchOS"
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            WatchOSEntryView(entry: entry)
+            WidgetIOSEntryView(entry: entry)
         }
         .supportedFamilies([.accessoryRectangular])
         .configurationDisplayName("SOS Button")
@@ -84,7 +84,7 @@ struct WatchOS: Widget {
 }
 
 #Preview(as: .accessoryRectangular) {
-    WatchOS()
+    WidgetIOS()
 } timeline:{
-    WatchOSEntry(date: Date())
+    WidgetIOSEntry(date: Date())
 }
