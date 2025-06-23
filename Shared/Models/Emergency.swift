@@ -32,5 +32,13 @@ struct EmergencyRequestBody: Codable {
 struct EndEmergencyRequestBody: Codable {
     let id: Int
     let resolved: Bool
-    let reason: String
+    let reason: String?
+}
+
+extension EndEmergencyRequestBody {
+    init(id: Int, resolved: Bool) {
+        self.id = id
+        self.resolved = resolved
+        self.reason = nil
+    }
 }

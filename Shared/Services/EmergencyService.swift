@@ -8,17 +8,21 @@
 import Foundation
 
 class EmergencyService {
-    func insertEmergency(elder_id: String, longitude: Double, latitude: Double) async {
+    func insertEmergency(elder_id: String, longitude: Double, latitude: Double) async -> Emergency? {
         let emergency = EmergencyRequestBody(
             elder_id: elder_id, longitude: longitude, latitude: latitude
         )
         do {
-            try await supabase
+            let insertedEmergency: Emergency = try await supabase
                 .from("emergencies")
                 .insert(emergency)
                 .execute()
+                .value
+            
+            return insertedEmergency
         } catch {
             print("Error inserting emergency \(error)")
+            return nil
         }
     }
     
@@ -75,6 +79,21 @@ class EmergencyService {
                     id: id,
                     resolved: true,
                     reason: reason
+                ))
+                .eq("id", value: id)
+                .execute()
+        } catch {
+            print("fail to end emergency \(error)")
+        }
+    }
+    
+    func endEmergencyWithoutReason(id: Int) async {
+        do {
+            try await supabase
+                .from("emergencies")
+                .update(EndEmergencyRequestBody(
+                    id: id,
+                    resolved: true,
                 ))
                 .eq("id", value: id)
                 .execute()

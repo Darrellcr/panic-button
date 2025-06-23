@@ -37,7 +37,7 @@ struct WatchOSEntryView : View {
     var body: some View {
         ZStack {
             Capsule()
-                .fill(.color)
+                .fill(.blood0)
             HStack{
                 Image("logo_transparent")
                     .resizable()

@@ -13,17 +13,30 @@ struct ElderlySOSView: View {
     let emergencyService = EmergencyService()
     let notificationService = NotificationService()
     let locationManager = LocationManager()
+    @State private var activeEmergency: Emergency?
     
     var body: some View {
-        Button {
+        SOSButtonView(size: 300) {
             Task {
                 let uid = authService.user!.id.uuidString
                 await notificationService.sendSOSNotification(fromUserId: uid)
-                await emergencyService.insertEmergency(
-                    elder_id: uid, longitude: locationManager.longitude ?? 0, latitude: locationManager.latitude ?? 0)
+                let emergency = await emergencyService.insertEmergency(
+                    elder_id: uid, longitude: locationManager.longitude ?? 0,
+                    latitude: locationManager.latitude ?? 0
+                )
+                await MainActor.run {
+                    activeEmergency = emergency
+                }
             }
-        } label: {
-            SOSButtonView(size: 300)
+        } onDeactivate: {
+            if let emergencyId = activeEmergency?.id {
+                Task {
+                    await emergencyService.endEmergencyWithoutReason(id: emergencyId)
+                    await MainActor.run {
+                        activeEmergency = nil
+                    }
+                }
+            }
         }
         .navigationTitle("SOS")
         .task {
