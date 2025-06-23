@@ -8,8 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var fill: CGFloat = 0.0
+    @State private var isPressed = false
+    @State private var isActivated = false
+    @State private var timerTask: DispatchWorkItem?
+
     var body: some View {
+        
             ZStack {
+                //track circle
+                Circle()
+                    .stroke(Color.white.opacity(0.3),
+                            style: StrokeStyle(lineWidth:30))
+                
+                // animation circle
+                Circle()
+                    .trim(from: 0, to: isActivated ? 1.0 : self.fill)
+                    .stroke(Color.neonyellow1,
+                            style: StrokeStyle(lineWidth:30))
+                    .rotationEffect(.init(degrees: -90))
+                    .animation(.linear(duration: 2), value: fill)
+                
                 // Bayangan luar lembut
                 Circle()
                     .fill(Color.black)
@@ -30,7 +49,7 @@ struct ContentView: View {
                     .overlay(
                         // Inner glossy shine (highlight)
                         Circle()
-                            .fill(Color.blood)
+                            .fill(isActivated ? Color.blood3 : Color.blood0)
                             .blur(radius: 2)
                             .padding(6)
                     )
@@ -40,8 +59,41 @@ struct ContentView: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundStyle(.white)
-                
+            
             }
+            .frame(width: 150, height: 180)
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { _ in
+                                if !isPressed {
+                                    isPressed = true
+                                    withAnimation(.linear(duration: 2)) {
+                                        fill = 1.0
+                                    }
+                                    
+                                    // Start 3-second hold timer
+                                    let task = DispatchWorkItem {
+                                        isActivated = true
+                                    }
+                                    timerTask = task
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: task)
+                                }
+                            }
+                            .onEnded { _ in
+                                isPressed = false
+                                fill = 0.0
+                                timerTask?.cancel()
+                                if !isActivated {
+                                    isActivated = false
+                                }
+                            }
+                    )
+        
+//            .onTapGesture {
+//                
+//                self.fill = 1.0
+                
+            
 
         HStack {
             Image("logo_transparent")
