@@ -49,9 +49,22 @@
 		5B2B21632DFB2B900020CEC1 /* SafeTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5B3AFC232E095C590034F63E /* Exceptions for "WatchOS Watch App" folder in "SafeTap" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+			);
+			target = 5B2B21622DFB2B900020CEC1 /* SafeTap */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2634FF3F2E02ACF700C19204 /* WatchOS Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5B3AFC232E095C590034F63E /* Exceptions for "WatchOS Watch App" folder in "SafeTap" target */,
+			);
 			path = "WatchOS Watch App";
 			sourceTree = "<group>";
 		};
