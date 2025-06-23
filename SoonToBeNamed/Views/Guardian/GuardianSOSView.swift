@@ -30,20 +30,22 @@ struct GuardianSOSView: View {
     
     
     var body: some View {
-        Group {
-            if isLoading {
-                VStack(spacing: 16) {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .secondary))
-                        .scaleEffect(2)
+        
+            Group {
+                if isLoading {
+                    VStack(spacing: 16) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .secondary))
+                            .scaleEffect(2)
+                    }
+                } else if let elderCoordinate {
+                    EmergencyView(elderCoordinate)
                 }
-            } else if let elderCoordinate {
-                EmergencyView(elderCoordinate)
+                else{
+                    EmptyStateView
+                }
             }
-            else{
-                EmptyStateView
-            }
-        }
+            
         .task {
             await checkEmergency()
             let channel = supabase.channel("emergencies")
@@ -138,6 +140,7 @@ struct GuardianSOSView: View {
         return VStack{
             Text("You are \(String(format: "%.2f", range)) km away from your loved one")
             MapView(elderCoordinate)
+                .padding(.vertical, 20)
             Button(action: {
                 showEndEmergencyAlert.toggle()
             }) {
@@ -197,9 +200,7 @@ struct GuardianSOSView: View {
             Circle()
                 .stroke(Color.gray.opacity(0.3), lineWidth: 1)
         )
-        .frame(height: 360)
         .shadow(radius: 5)
-        .cornerRadius(12)
     }
 }
 

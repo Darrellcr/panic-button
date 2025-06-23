@@ -51,6 +51,22 @@ class EmergencyService {
         }
     }
     
+    func getAllEmergencies(elderId: String) async -> [Emergency] {
+        do {
+            let emergencies: [Emergency] = try await supabase
+                .from("emergencies")
+                .select()
+                .eq("elder_id", value: elderId)
+                .execute()
+                .value
+            
+            return emergencies
+        } catch {
+            print("Fail to get all emergency \(error)")
+            return []
+        }
+    }
+    
     func endEmergency(id: Int, reason: String) async {
         do {
             try await supabase

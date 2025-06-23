@@ -61,6 +61,24 @@ class GuardianService {
         }
     }
     
+    func getElderByGuardianId(guardianId: String) async -> Profile? {
+        do {
+            let elder: Profile = try await supabase
+                .from("profiles")
+                .select("*, guardians:guardians!guardians_elder_id_fkey!inner(guardian_id, confirmed_by_guardian)")
+                .eq("guardians.guardian_id", value: guardianId)
+                .eq("guardians.confirmed_by_guardian", value: true)
+                .single()
+                .execute()
+                .value
+            
+            return elder
+        } catch {
+            print("Fail to get elders by guardian id \(error)")
+            return nil
+        }
+    }
+    
     func acceptInvitation(elderId: String, guardianId: String) async -> Bool {
         do {
             try await supabase

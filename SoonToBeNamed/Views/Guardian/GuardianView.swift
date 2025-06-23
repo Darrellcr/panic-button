@@ -10,8 +10,10 @@ import SwiftUI
 struct GuardianView: View {
     @EnvironmentObject var authService: AuthService
     @State var showAlert: Bool = false
+    @State var profile: Profile?
     @State var elderProfile: Profile?
     let guardianService = GuardianService()
+    let profileService = ProfileService()
     let notificationService = NotificationService()
     
     var body: some View {
@@ -21,19 +23,26 @@ struct GuardianView: View {
                 
                 Tab("SOS", systemImage: "sos.circle.fill"){
                     GuardianSOSView()
+                        .toolbarBackground(.hidden, for: .tabBar)
+                        .toolbarBackground(.hidden, for: .navigationBar)
                 }
+                
                 Tab("History", systemImage: "list.clipboard"){
-                    Button("Logout") {
-                        Task {
-                            do {
-                                try await authService.logout()
-                            }
-                        }
+                    GuardianHistoryView()
+                        .toolbarBackground(.hidden, for: .tabBar)
+                        .toolbarBackground(.hidden, for: .navigationBar)
+
+                }
+                
+                
+                
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination: GuardianProfileView(profile: profile)) {
+                        ProfilePictureView()
                     }
                 }
-                
-                
-                
             }
             .alert("Guardian Invitation", isPresented: $showAlert, presenting: elderProfile) { elderProfile in
                 Button("Accept") {
@@ -55,6 +64,10 @@ struct GuardianView: View {
             }
             .task {
                 notificationService.registerForRemoteNotifications()
+                let p = await profileService.getProfile(uuid: authService.user!.id.uuidString)
+                await MainActor.run {
+                    profile = p
+                }
                 for await notification in NotificationCenter.default.notifications(named: .invitationReceived) {
                     let profile = notification.object as! Profile
                     Task {

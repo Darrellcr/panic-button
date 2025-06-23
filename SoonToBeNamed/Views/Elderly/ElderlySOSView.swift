@@ -25,6 +25,7 @@ struct ElderlySOSView: View {
         } label: {
             SOSButtonView(size: 300)
         }
+        .navigationTitle("SOS")
         .task {
             
         }

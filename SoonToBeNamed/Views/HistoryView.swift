@@ -15,12 +15,7 @@ struct HistoryItem: Identifiable, Hashable {
 }
 
 struct HistoryView: View {
-    @State var historyItems: [HistoryItem] = [
-        HistoryItem(date: dateFromString("18/06/25 10:30:00"), location: "Universitas Ciputra", reason: "Jatuh"),
-        HistoryItem(date: dateFromString("20/06/25 14:20:00"), location: "Universitas Ciputra", reason: "Kesandung"),
-        HistoryItem(date: dateFromString("21/05/25 04:20:00"), location: "Universitas Ciputra", reason: "Kejatuhan barang"),
-        HistoryItem(date: dateFromString("02/05/25 19:15:00"), location: "Cafe XYZ", reason: "Pingsan")
-    ]
+    @State var historyItems: [HistoryItem]
     
     @State private var expandedSections: Set<String> = []
     
@@ -143,6 +138,11 @@ func dateFromString(_ string: String) -> Date {
 
 #Preview {
     
-    HistoryView()
+    HistoryView(historyItems: [
+        HistoryItem(date: dateFromString("18/06/25 10:30:00"), location: "Universitas Ciputra", reason: "Jatuh"),
+        HistoryItem(date: dateFromString("20/06/25 14:20:00"), location: "Universitas Ciputra", reason: "Kesandung"),
+        HistoryItem(date: dateFromString("21/05/25 04:20:00"), location: "Universitas Ciputra", reason: "Kejatuhan barang"),
+        HistoryItem(date: dateFromString("02/05/25 19:15:00"), location: "Cafe XYZ", reason: "Pingsan")
+    ])
     
 }

@@ -14,10 +14,12 @@ struct Emergency: Codable {
     let latitude: Double
     let resolved: Bool
     let reason: String?
+    let createdAt: Date
     
     enum CodingKeys: String, CodingKey {
         case id, longitude, latitude, resolved, reason
         case elderId = "elder_id"
+        case createdAt = "created_at"
     }
 }
 
