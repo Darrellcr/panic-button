@@ -30,8 +30,6 @@ struct HistoryView: View {
     
     var body: some View {
         NavigationStack {
-            
-            
             ScrollView {
                 VStack(spacing: 12) {
                     ForEach(groupedHistory.sorted(by: { $0.key < $1.key }), id: \.key) { key, items in
